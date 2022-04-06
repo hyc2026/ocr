@@ -1,0 +1,63 @@
+base:
+  gpu_id: '1'  #
+  algorithm: DB  #
+  pretrained: True  #
+  in_channels: [24, 40, 48, 96]  # 和backbone挂钩
+  inner_channels: 96  #
+  k: 50  #
+  adaptive: True  #
+  crop_shape: [640, 640]  #
+  shrink_ratio: 0.4  #
+  n_epoch: 1200  #
+  start_val: 400  #
+  show_step: 20  #
+  checkpoints: ./checkpoint
+  save_epoch: 100  #
+  restore: True  #
+  restore_file : ./checkpoint/ag_DB_bb_mobilenet_v3_small_he_DB_Head_bs_16_ep_1200_mobile_slim_all/DB_best.pth.tar  #
+
+backbone:
+  function: ptocr.model.backbone.det_mobilev3,mobilenet_v3_small  #
+
+head:
+  function: ptocr.model.head.det_DBHead,DB_Head  # 
+
+segout:
+  function: ptocr.model.segout.det_DB_segout,SegDetector
+
+architectures:
+  model_function: ptocr.model.architectures.det_model,DetModel
+  loss_function: ptocr.model.architectures.det_model,DetLoss
+
+loss:
+  function: ptocr.model.loss.db_loss,DBLoss
+  l1_scale: 10 
+  bce_scale: 1
+
+optimizer:
+  function: ptocr.optimizer,SGDDecay
+  base_lr: 0.001
+  momentum: 0.99
+  weight_decay: 0.00005
+
+optimizer_decay:
+  function: ptocr.optimizer,adjust_learning_rate  #
+    schedule: [200,400,500]  #
+    gama: 0.1  #
+  function: ptocr.optimizer,adjust_learning_rate_poly  #
+    factor: 0.9  #
+
+trainload:
+  function: ptocr.dataloader.DetLoad.DBProcess,DBProcessTrain
+  train_file: ./dataset/icdar2015/dec_train_list.txt  # 选择数据集
+  num_workers: 10  #
+  batch_size: 8  #
+
+testload:
+  function: ptocr.dataloader.DetLoad.DBProcess,DBProcessTest
+  test_file: ./dataset/icdar2015/dec_test_list.txt  # 选择测试集
+  test_gt_path: ./dataset/icdar2015/dec_test_label/  # 选择测试集
+  test_size: 736  #
+  stride: 32  #
+  num_workers: 5  #
+  batch_size: 4  #

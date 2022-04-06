@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link href="/static/blog.css" rel="stylesheet">
+<style>
+  p{ text-indent:2em;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="starter-template">
+    <h1>Easy OCR 使用文档</h1>
+  </div>
+  <div class="row">
+
+    <div class="col-sm-8 blog-main">
+      <div align="center">
+        <img src="/static/images/pse1.png" class="img-responsive" alt="Responsive image">
+      </div>
+      <div class="blog-post formula">
+        <p>11111</p>
+        <div align="center">
+          <img src="/static/images/pse2.png" class="img-responsive" alt="Responsive image" >
+        </div>
+      </div><!-- /.blog-post -->
+    </div><!-- /.blog-main -->
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>About</h4>
+        <p>2222</p>
+      </div>
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          <li><a href="/doc">Develop DOC</a></li>
+          <li><a href="/doc/db">DBNet</a></li>
+          <li><a href="/doc/pse">PSENet</a></li>
+          <li><a href="/doc/pan">PANNet</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+<script>
+    $(function () {
+        $('#menu_d').addClass('active');
+        $('#menu_c').removeClass('active');
+        $('#menu_h').removeClass('active');
+    })
+</script>
+{% endblock %}

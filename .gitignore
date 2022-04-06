@@ -1,0 +1,9 @@
+/checkpoint
+/pre_model
+*.sqlite3
+*.bak
+/dataset
+
+.cache
+__pycache__/
+*.pyc

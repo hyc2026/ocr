@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link href="/static/blog.css" rel="stylesheet">
+<style>
+  p{ text-indent:2em;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="starter-template">
+    <h1>像素增强网络<small> PANNet</small></h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+      <div align="center">
+        <img src="/static/images/pan1.png" class="img-responsive" alt="Responsive image">
+      </div>
+      <div class="blog-post formula">
+        <p>主干网络的conv2、conv3、conv4和conv5级生成4个特征图，它们相对于输入图像具有4、8、16、32像素的步长。并且使用1×1卷积将每个特征映射的通道数减少到128，得到一个薄的特征金字塔。</p>
+        <p>分割头由多个级联的特征金字塔增强模块和一个特征融合模块组成。</p>
+        <p>其中特征金字塔增强模块用来进一步提取特征，特征融合模块将各个特征金字塔增强模块提取的特征进行最后的整合。</p>
+        <p>特征金字塔增强模块结构为U型的卷积神经网络，包括上尺度增强，和下尺度增强两个步骤。它能够通过以最小的计算开销融合低层和高层的多级信息来增强不同尺度的特征，指导更好的分割，结构如图所示。随着级联数的增加，不同尺度的特征图融合更加充分，特征的感受野变大，并且计算成本很低，只有传统特征金字塔网络FPN网络计算量的1/5。级联的特征金字塔增强模块用来补偿轻量级主干的深度。</p>
+        <div align="center">
+          <img src="/static/images/pan2.png" class="img-responsive" alt="Responsive image" >
+        </div>
+        <p>特征融合模块将不同深度的特征金字塔增强模块提取的特征进行融合，从而实现低级和高级语义信息的融合。特征融合模块的具体实现方法为，首先通过逐元素加法合并相应比例的特征地图。然后，对相加后的特征图进行上采样，并连接成最终特征图，如图所示。</p>
+        <div align="center">
+          <img src="/static/images/pan3.png" class="img-responsive" alt="Responsive image" >
+        </div>
+        <p>在经过模型中的网络部分推理后，获得文字区域，核和相似向量。文字区域用来描述文本实例的完整形状，核用来区分不同的文本实例，相似向量使得来自同一文本实例的像素和核的相似性向量之间的距离很小。</p>
+        <p>虽然获得了文字区域的分割图，但是可能因为文字距离较近的原因，不同的文字块实例的分割图重叠在一起。文字核心的分割图可以用来区分不同的文字，但不是完整的文字。为了获得完整的文字实例，像素增强网络需要将文字区域的分割图中的像素分配到相应的核，因此提出了可学习的像素聚合算法，以将不同的像素引导至正确的内核。在像素聚合使用了聚类算法的思想，文字核为聚类的中心，文字区域的像素为待聚类的样本，需要将文字区域像素划分到和其距离最近的文字核内。</p>
+      </div><!-- /.blog-post -->
+    </div><!-- /.blog-main -->
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>About</h4>
+        <p>像素增强网络由三部分组成：主干网络、低计算成本的分割头和可学习的后处理算法。像素增强网络的主干网络为轻量级的ResNet18，减少了网络参数量和计算量。但是只是ResNet18不足以提取足够的特征，并且网络的感受野较小，表示能力弱。因此主干网络之后又添加了分割头来进一步增强网络的特征抽取能力并扩大网络的感受野。</p>
+        <p>分割头由特征金字塔增强模块FPEM和特征融合模块FFM组成，经过上述结构的推理，分割网络推理得到了分割出来的文字区域，核和相似向量。最后，使用可学习的像素聚合算法对上述输出进行整合，输出最终的文字检测结果。</p>
+      </div>
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          <li><a href="/doc">Develop DOC</a></li>
+          <li><a href="/doc/db">DBNet</a></li>
+          <li><a href="/doc/pse">PSENet</a></li>
+          <li><a href="/doc/pan">PANNet</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+<script>
+    $(function () {
+        $('#menu_d').addClass('active');
+        $('#menu_c').removeClass('active');
+        $('#menu_h').removeClass('active');
+    })
+</script>
+{% endblock %}

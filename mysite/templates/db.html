@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link href="/static/blog.css" rel="stylesheet">
+<style>
+  p{ text-indent:2em;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="starter-template">
+    <h1>可微分二值化网络<small> DBNet</small></h1>
+  </div>
+  <div class="row">
+
+    <div class="col-sm-8 blog-main">
+      <div align="center">
+        <img src="/static/images/db.png" class="img-responsive" alt="Responsive image">
+      </div>
+      <div class="blog-post formula">
+        <p>首先，输入图片进入特征金字塔网络，其次，特征金字塔产生的特征通过上采样获得相同的尺度，然后串联生成特征F，然后，特征F用于预测概率图（P）和阈值图（T），并预测出近似二值图（<span>`\hat{B}`</span>）。在训练期间，监督应用于概率图、阈值图和近似二进制图，其中概率图和近似二进制图共享相同的监督。在推理阶段，可以从近似二进制图或概率图中容易地获得包围盒。</p>
+        <p>标准的二值化是不可微的，本文提出了近似的二值化函数：</p>
+        <span style="text-align: center;display:block;">`\hat{B}_{i,j}=\frac{1}{1+e^{-k(P_{i,j}-T_{i,j})}`</span>
+        <p>其中，T是从网络中学习的自适应阈值图，k表示放大因子，通常设为50。从图中可以看到，该近似二值化方程与标准二值化的图像类似。</p>
+        <div align="center">
+          <img src="/static/images/db_func.png" class="img-responsive" alt="Responsive image" >
+        </div>
+      </div><!-- /.blog-post -->
+    </div><!-- /.blog-main -->
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>About</h4>
+        <p>可微分二值化网络是一个可以自适应地二值化阈值的基于分割的网络，它不仅简化了后处理的操作，而且提高了文字检测的性能。可微分二值化模型将二值化操作插入分割网络进行联合优化，图中每一个点的阈值可以自适应地预测，从而完全区分前景和背景的像素。</p>
+      </div>
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          <li><a href="/doc">Develop DOC</a></li>
+          <li><a href="/doc/db">DBNet</a></li>
+          <li><a href="/doc/pse">PSENet</a></li>
+          <li><a href="/doc/pan">PANNet</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+<script>
+    $(function () {
+        $('#menu_d').addClass('active');
+        $('#menu_c').removeClass('active');
+        $('#menu_h').removeClass('active');
+    })
+</script>
+{% endblock %}

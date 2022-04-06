@@ -1,0 +1,287 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<style>
+  .config-template {
+    padding: 60px 30px;
+  }
+  .form-group {
+    padding: 0px 15px;
+    position: static;
+  }
+  .col-sm-10,.col-sm-2 {
+    padding: 10px 0px;
+  }
+  .form-ctrl {
+    display:block;width:auto;vertical-align:middle
+  }
+  .head-template {
+    padding: 20px 15px 0px 15px;
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="head-template">
+    <h1>Set the config file</h1>
+  </div>
+  <div class="config-template">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">GPU ID</label>
+          <div class="col-md-10">
+            <label class="checkbox-inline">
+            <input type="checkbox" id="gpu0" value="0"> 0
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="gpu1" value="1"> 1
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="gpu2" value="2"> 2
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="gpu3" value="3"> 3
+          </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">ALGORITHM</label>
+          <div class="col-md-10">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="db" value="DB"> DB
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="pse" value="PSE"> PSE
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="pan" value="PAN"> PAN
+          </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">PRETRAINED</label>
+          <div class="col-md-10">
+            <label class="radio-inline">
+              <input type="radio" name="pretrained" id="pretrained_yes" value="pretrained_yes" checked> yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="pretrained" id="pretrained_no" value="pretrained_no"> no
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="inner_channels" class="col-md-2 control-label">INNER CHANNELS</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="inner_channels" placeholder="inner channels">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="k" class="col-md-2 control-label">K</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="k" placeholder="k">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">ADAPTIVE</label>
+          <div class="col-md-10">
+            <label class="radio-inline">
+              <input type="radio" name="adaptive" id="adaptive_yes" value="adaptive_yes" checked> yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="adaptive" id="adaptive_no" value="adaptive_no"> no
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="crop_shape_w" class="col-md-2 control-label">CROP SHAPE</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="crop_shape_w" placeholder="width">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="crop_shape_h" placeholder="height">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="shrink_ratio" class="col-md-2 control-label">SHRINK RATIO</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="shrink_ratio" placeholder="shrink ratio">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="n_epoch" class="col-md-2 control-label">N EPOCH</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="n_epoch" placeholder="n epoch">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="start_val" class="col-md-2 control-label">START VALIDATION</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="start_val" placeholder="start validation">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="show_step" class="col-md-2 control-label">SHOW STEP</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="show_step" placeholder="show step">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label for="save_epoch" class="col-md-2 control-label">SAVE EPOCH</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="save_epoch" placeholder="save epoch">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">RESTORE</label>
+          <div class="col-md-10">
+            <label class="radio-inline">
+              <input type="radio" name="restore" id="restore_yes" value="restore_yes" checked> yes
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="restore" id="restore_no" value="restore_no"> no
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">RESTORE FILE</label>
+          <div class="col-md-8">
+            <select class="form-control">
+              <option value="">ag_DB_bb_mobilenet_v3_small_he_DB_Head_bs_16_ep_1200_mobile_slim_all</option>
+              <option value="">ag_PAN_bb_mobilenet_v3_small_he_DB_Head_bs_16_ep_1200_mobile_slim_all</option>
+              <option value="">ag_PSE_bb_mobilenet_v3_small_he_DB_Head_bs_16_ep_1200_mobile_slim_all</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">BACKBONE</label>
+          <div class="col-md-3">
+            <select class="form-control">
+              <option value="">mobilenet_v3</option>
+              <option value="">resnet</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-control">
+              <option value="">mobilenet_v3_small</option>
+              <option value="">resnet50</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">OPTIMIZER<small> SGD</small></label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="base_lr" placeholder="base learning rate">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="momentum" placeholder="momentum">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="weight_decay" placeholder="weight decay">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">LEARNING RATE</label>
+          <div class="col-md-10">
+            <label class="radio-inline">
+              <input type="radio" name="lr" id="method1" value="adjust_learning_rate_poly" checked> method1
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="lr" id="method2" value="adjust_learning_rate"> method2
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">TRAIN LOAD</label>
+          <div class="col-md-2">
+            <select class="form-control">
+              <option value="">icdar2015</option>
+              <option value="">icdar2013</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="train_num_work" placeholder="worker numbers">
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="train_batch_size" placeholder="batch size">
+          </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <label class="col-md-2 control-label">TEST LOAD</label>
+          <div class="col-md-2">
+            <select class="form-control">
+              <option value="">icdar2015</option>
+              <option value="">icdar2013</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="test_size" placeholder="test size">
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="test_stride" placeholder="stride">
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="test_num_work" placeholder="worker numbers">
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="test_batch_size" placeholder="batch size">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+          <input type="button" class="btn btn-default">Submit
+        </div>
+      </div>
+    </form>
+  </div>
+</div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+<script>
+    $(function () {
+        $('#menu_c').addClass('active');
+        $('#menu_d').removeClass('active');
+        $('#menu_h').removeClass('active');
+    })
+</script>
+{% endblock %}
