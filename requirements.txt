@@ -1,0 +1,11 @@
+numpy==1.15.1
+torch==1.4.0
+torchvision==0.5.0
+Polygon3
+pyclipper
+shapely
+imgaug
+pyyaml
+tqdm
+pytest-shutil
+django
